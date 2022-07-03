@@ -1,7 +1,7 @@
 class ArticlesObject:
 
   def __init__(self, id,title,homePageImage, articleImage, description):
-    strip_character = "/"
+    strip_character =  "/"
     self.id = id
     self.title = title
     if homePageImage == None:
