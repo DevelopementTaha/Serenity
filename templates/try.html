@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <meta name="theme-color" content="#34A5DA">
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}" />
+  <title>Welcome to Serenity Relaxation</title>
+  <link rel="icon" type="image/png" img src="../img/Logo Serenity Icon High Res v1.0.png ">
+  <meta name="description" content="A demo Serenity relaxation webapp">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+  <link rel="poster" type="image/png" img src="../static/images/poster.jpg">
+</head>
+
+<body>
+
+  <div>
+    {% for word in kwords %}
+     {{word.audio}}
+    {% endfor %}
+  </div>
+
+</body>
+</html>

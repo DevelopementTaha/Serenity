@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <meta name="theme-color" content="#34A5DA">
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}" />
+  <title>Serenity Relaxation</title>
+  <meta name="description" content="Serenity relaxation webapp">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+	<link rel="shortcut icon" type="image/x-icon" href="../static/images/Logo Serenity Icon High Res v1.0.png" />
+
+
+  <!-- Bootstrap Links -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <!-- JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+</head>
+
+<body style="background-color: #f6f6f6;">
+  <div class="search-wrap">
+    <img class="TopHomeImage" src="../static/images/Home page top image.png"></img>
+    <h2 class="Heading">Bienvenue sur Ma Pause Serenity !</h2>
+    <div id="search-div" class="search">
+      <a href="{{ url_for('card') }}">
+        <input type="text" id="static-text" class="searchTerm" placeholder="What are you looking for?" id="searchText">
+      </a>
+    </div>
+  </div>
+    <div style="background-color: #f6f6f6;">
+      <br>
+      <h5 class="collection-sub-title">Collections</h5>
+      <br>
+    </div>
+    <section style="overflow-x: auto;">
+      <div id="gCat" class="scroll-menu">
+        {% for key in keys %}
+        <a href = "{{ url_for('card', keyword=key.title) }}">
+          <img oncontextmenu="return false;" src={{key.image}} width="130" height="60" frameborder="0"></img>
+        </a>
+        {% endfor %}
+    </section>
+    {% if anyCollections %}
+      <div style="background-color: #f6f6f6;">
+        <br>
+        <h5 class="collection-sub-title">Parcours</h5>
+        <br>
+      </div>
+    {% endif %}
+
+    <section style="overflow-x: auto;">
+          <div id="gCat" class="scroll-menu">
+            {% for collection in collections %}
+              {% if collection.showCollection %}
+                <a href="{{ url_for('showCollections', collectionId=collection.id) }}">
+                    <img oncontextmenu="return false;" src={{collection.image}} width="200" height="130" frameborder="0"></img>
+                </a>
+              {% endif %}
+            {% endfor %}
+          </div>
+    </section>
+    
+    {% for collection in sortedSessionListFromCollection %}
+      {% if collection.showSession %}
+        <div style="background-color: #f6f6f6;">
+          <br>
+            <h5 class="collection-sub-title">{{collection.name}}</h5>
+          <br>
+        </div>
+        <section style="overflow-x: auto;">
+          <div id="gCat" class="scroll-menu">
+            {% for session in collection.sessionList %}
+              <a href="{{ url_for('showSession', sessionId=session.id) }}">
+                  <img oncontextmenu="return false;" src="{{session.image}}" width="265" height="145" frameborder="0"></img>
+              </a>
+            {% endfor %}
+          </div>
+        </section>
+      {% endif %}
+      <!-- ##### POSITIPS ##### -->
+      
+      {% if collection.showPositip %}
+        <div style="background-color: #f6f6f6;">
+          <br>
+            <h5 class="collection-sub-title">{{collection.name}}</h5>
+          <br>
+        </div>
+        <section style="overflow-x: auto;">
+          <div id="gCat" class="scroll-menu">
+            {% for positip in collection.positipList %}
+              <a href="{{ url_for('showPositip', positipId=positip.id) }}">
+                  <img oncontextmenu="return false;" src="{{positip.homePageImage}}" width="265" height="145" frameborder="0"></img>
+              </a>
+            {% endfor %}
+          </div>
+        </section>
+      {% endif %}
+
+      <!-- ##### ARTICLES ##### -->
+
+      {% if collection.showArticle %}
+      <div style="background-color: #f6f6f6;">
+        <br>
+          <h5 class="collection-sub-title">{{collection.name}}</h5>
+        <br>
+      </div>
+      <section style="overflow-x: auto;">
+        <div id="gCat" class="scroll-menu">
+          {% for article in collection.articleList %}
+            <a href="{{ url_for('showArticle', articleId=article.id) }}">
+                <img oncontextmenu="return false;" src="{{article.homePageImage}}" width="265" height="145" frameborder="0"></img>
+            </a>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+
+    {% endfor %}
+      
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <br>
+    <br>
+    <footer class = "footerbuttons">
+      <a href="loginPage.html"><img src="..//static/images/PWA - Login.png"  class="footerImage" /></a>
+      <a> <img src="../static/images/PWA - About us.png"  class="footerImage" /></a>
+      <a> <img src="../static/images/PWA - My account.png"  class="footerImage" /><a>
+      <a> <img src="../static/images/PWA - Favorites.png"  class="footerImage" /></a>
+    </footer>
+  <style>
+    footerbuttons{
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.5), -2px -2px 4px rgba(20, 19, 19, 0.5);
+    }
+  </style>
+  <script src="{{ url_for('static', filename='cardLayout.js') }}"></script>
+</body>
+
+</html>

@@ -1,0 +1,280 @@
+.name{
+    position: absolute;
+    top: 35px;
+    color: darkblue
+}
+.image {
+      position:relative; 
+      left: 3px; 
+      top:42px; 
+      background-color:#f6f6f6;
+      height: auto;
+      width: 355px;
+    }
+  .description{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position:absolute;
+      top: 365px;
+      text-align: center;
+      overflow: auto;
+      width: 20em;
+      color: darkblue
+    }
+      
+  #description {
+      font-size:20px; 
+      font-style:italic;
+      color: darkblue
+    }
+    .footerbuttons{
+      position: fixed;
+      background-color:#ffffff ;
+      margin-left: 0;
+      margin-right: 0;
+      max-width: 100%;
+      padding-left: 40px;
+      padding-right: 40px;
+      text-align: center;
+      bottom: 0;
+      width: 100%;
+      box-sizing: border-box;
+      height: 7%;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+    main {
+      padding-bottom: 140px;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50vh;
+      font-family: 'Open Sans', sans-serif;
+      color: #333;
+      background:#f6f6f6;
+      height: auto;
+  }
+
+  .logo {
+      display:block;
+      top : 20px
+  }
+  /*----------CARD-STYLE----------*/
+
+  .parent-div {
+    position: absolute;
+    top: 315px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap : nowrap;
+    align-content: center;
+    justify-content: center;
+    padding-top: 150px
+    
+
+  
+  }
+  .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: 345px;
+      background: #f6f6f6;
+      color: currentColor;
+      text-decoration: none;
+      overflow: hidden;
+      transition-property: color;
+      transition-delay: 0.15s;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, .1);
+  }
+  .card.hover {
+      color: #f6f6f6;
+      transition-delay: 0;
+  }
+  .card, .card__image, .card__image::after, .card__author, .card__body, .card__foot, .card__border {
+      transition-duration: 0.4s;
+      transition-timing-function: cubic-bezier(0.51, 0.92, 0.24, 1);
+  }
+  .card__head {
+      position: relative;
+      padding-top: 55%;
+  }
+  .card__author {
+      position: absolute;
+      padding: 2em;
+      left: 0;
+      bottom: 0;
+      color: #f6f6f6;
+      transition-property: transform;
+      transition-delay: 0.15s;
+  }
+  .card.hover .card__author {
+      transition-delay: 0;
+  }
+  .card__image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-size: cover;
+      background-position: center;
+      transform-origin: top center;
+      transition-property: transform;
+      transition-delay: 0.15s;
+  }
+  .card__image::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0.5;
+      background: linear-gradient(30deg, rgba(26, 42, 99, .85), rgba(26, 42, 99, .5));
+      transition-property: opacity;
+      transition-delay: 0.15s;
+  }
+  .card.hover .card__image {
+      transition-delay: 0;
+  }
+  .card.hover .card__image::after {
+      opacity: 1;
+      transition-delay: 0;
+  }
+  .card__body {
+      position: relative;
+      transition-property: transform;
+      transition-delay: 0.15s;
+  }
+  .card.hover .card__body {
+      transition-delay: 0;
+  }
+  .card__headline {
+      font-weight: 400;
+      margin: 0 0 0.8em;
+  }
+  .card__text {
+      line-height: 1.5;
+      margin: 0;
+      opacity: 0.8;
+  }
+  .card__foot {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 0 2em 2em;
+      opacity: 0;
+      transition-property: opacity;
+  }
+  .card.hover .card__foot {
+      opacity: 1;
+      transition-delay: 0.15s;
+  }
+  .card__link {
+      color: currentColor;
+      text-decoration: none;
+      border-bottom: 2px solid #b5272d;
+  }
+  .card__border {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 6px;
+      background: #b5272d;
+      transform: scaleY(0);
+      transition-property: transform;
+  }
+  .card.hover .card__border {
+      transform: none;
+      transition-delay: 0.15s;
+  }
+  .author {
+      display: flex;
+      align-items: center;
+  }
+  .author__image {
+      flex-shrink: 0;
+      margin-right: 1em;
+      width: 56px;
+      height: 56px;
+      border-radius: 100%;
+      overflow: hidden;
+  }
+  .author__content {
+      display: grid;
+      grid-gap: 0.4em;
+      font-size: 0.9em;
+  }
+  .author__header {
+      margin: 0;
+      font-weight: 600;
+  }
+  .author__subheader {
+      margin: 0;
+      opacity: 0.8;
+  }
+
+
+  .image-box{
+      height: 200px;
+      width: 50px;
+
+  }
+
+  /* From uiverse.io by @bhaveshxrawat */
+  button {
+      background-color: #f6f6f6;   
+      border-radius: 24px;
+      border-style: none;
+      box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+      box-sizing: border-box;
+      color: #3c4043;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: inherit;
+      letter-spacing: .25px;
+      line-height: normal;
+      padding: 11px 24px;
+      transition: background box-shadow 280ms ease;
+  }
+  
+  button:hover {
+      background: #f6f6f6;
+      color: #174ea6;
+  }
+  
+  button:active {
+      box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
+      outline: none;
+      border: 2px solid #4285f4;
+  }
+  .footerbuttons{
+    position: fixed;
+    background-color:#ffff ;
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.7), -2px -2px 4px rgba(64, 64, 63, 0.5);
+  }
+  .footerImage{
+    width: 38px;
+    height: 38px;
+    background-size: cover;
+  }

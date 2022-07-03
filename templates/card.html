@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+        <meta name="theme-color" content="#34A5DA">
+        <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}" />
+        <title>Welcome to Serenity Relaxation</title>
+        <meta name="description" content="Serenity relaxation webapp">
+        <link rel="stylesheet" href="{{ url_for('static', filename='card.css') }}">
+        <link rel="shortcut icon" type="image/x-icon" href="../static/images/Logo Serenity Icon High Res v1.0.png" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous">
+        </script>
+        <script type="text/javascript">
+            $('document').ready(function () {
+                var clickedKey = "{{clickedKey}}";
+                if(clickedKey != ''){
+                    replaceText(clickedKey);
+                }
+                const height = elem => {
+                    return elem.getBoundingClientRect().height;
+                };
+                const distance = (elemA, elemB, prop) => {
+                    const sizeA = elemA.getBoundingClientRect()[prop];
+                    const sizeB = elemB.getBoundingClientRect()[prop];
+                    return sizeB - sizeA;
+                };
+                const factor = (elemA, elemB, prop) => {
+                    const sizeA = elemA.getBoundingClientRect()[prop];
+                    const sizeB = elemB.getBoundingClientRect()[prop];
+                    return sizeB / sizeA;
+                };
+                    document.querySelectorAll('.card').forEach(elem => {
+                    const head = elem.querySelector('.card__head');
+                    const image = elem.querySelector('.card__image');
+                    const author = elem.querySelector('.card__author');
+                    const body = elem.querySelector('.card__body');
+                    const foot = elem.querySelector('.card__foot');
+                   
+                    //elem.onmouseenter = () => {
+                   // elem.classList.add('hover');
+                    //const imageScale = 1 + factor(head, body, 'height');
+                   // image.style.transform = `scale(${imageScale})`;
+                   // const bodyDistance = height(foot) * -1;
+                  //  body.style.transform = `translateY(${bodyDistance}px)`;
+                   // const authorDistance = distance(head, author, 'height');
+                    //author.style.transform = `translateY(${authorDistance}px)`;
+                   // };
+                    elem.onmouseleave = () => {
+                    elem.classList.remove('hover');
+                    image.style.transform = `none`;
+                    body.style.transform = `none`;
+                    author.style.transform = `none`;
+                    };
+                });
+            });
+            function replaceText(text){
+                activateButton(text);
+                search(null, null);
+            }
+
+            function activateButton(id){
+                pressedButton = "border-style:inset;border-width:3px;background-color:#D6F3BB";
+                unPressedButton = "border-style:none;background-color: #fff";
+                pressedStyle = "border-style: inset";
+
+                if(document.getElementById(id).style.cssText.split(";")[0] == pressedStyle){
+                    document.getElementById(id).style.cssText = unPressedButton
+                    document.getElementById("searchText").value = document.getElementById("searchText").value.replace(id+",", "")
+                }
+                else{
+                    document.getElementById(id).style.cssText = pressedButton
+                    document.getElementById("searchText").value = document.getElementById("searchText").value + id + ",";
+                }
+            }
+
+            function durationFilter(duration){
+                pressedButton = "border-style:inset;border-width:3px;background-color:#D6F3BB";
+                unPressedButton = "border-style:none;background-color: #fff";
+                pressedStyle = "border-style: inset";
+                durations = [5,10,15,20];
+                pressed = false;
+
+                for(let i = 0; i < durations.length; i++){
+                    if(durations[i] == duration){
+                        if(document.getElementById("duration" + duration).style.cssText.split(";")[0] == pressedStyle){
+                            document.getElementById("duration" + duration).style.cssText = unPressedButton
+                            pressed = false;
+                        }
+                        else{
+                            document.getElementById("duration" + duration).style.cssText = pressedButton
+                            pressed = true;
+                        }
+                    } else document.getElementById("duration" + durations[i]).style.cssText = unPressedButton
+                }
+                search(duration, pressed);
+            }
+           
+            
+        </script>
+    </head>
+    
+    <body>
+        <div class="search-wrap">
+            <div id="search-div" class="search">
+              <input type="text" class="searchTerm" onkeyup="search()" placeholder="What are you looking for?" id="searchText">
+               <button type="submit" class="searchButton">
+                 <i class="fa fa-search"></i>
+               </button>
+            </div>
+            {% for key in keys %}
+                <button id= "{{key.title}}" class= "button" onclick= "replaceText('{{key.title}}')">{{key.title}}</button>
+            {% endfor %}
+            <button id="duration5" onclick="durationFilter(5)">5 minutes</button>
+            <button id="duration10" onclick="durationFilter(10)">10 minutes</button>
+            <button id="duration15" onclick="durationFilter(15)">15 minutes</button>
+            <button id="duration20" onclick="durationFilter(20)">20 minutes</button>
+            <div class="results">
+                <p id="results" ></p>
+            </div>
+        </div>
+
+        <div id="card-parent" class="parent-div">
+                {% for session in sessions %}
+                    <a href="{{ url_for('showSession', sessionId=session.id) }}" class="card">
+                    <div class="card__head">
+                            <div class="card__image" style="background-image: url('{{session.image}}');"> </div>
+                                <div class="card__author">
+                                    <div class="author">
+                                        <div class="author__content">
+                                            <p class="author__header">{{session.title}}</p>
+                                            <p class="author__subheader">{{session.categorie}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>
+                        <div class="card__body">
+                            <h2 class="card__headline"></h2>
+
+                        </div>
+
+                        <div class="card__foot">
+                            <span class="card__link">Explore</span>
+                        </div>
+
+                        <div class="card__border"></div>
+                    </a>
+                {% endfor %}
+            </div>
+            
+            <footer class = "footerbuttons">
+                <a href="{{ url_for('home') }}"><img src="..//static/images/PWA - Homepage.png"  class="footerImage" /></a>
+                <a href="javascript:void(0)" onclick="history.back(); return false"><img src="..//static/images/PWA - Previous.png"  class="footerImage" /></a>
+            </footer>
+            <style>
+                footerbuttons{
+                  box-shadow: 2px 2px 4px rgba(0,0,0,0.5), -2px -2px 4px rgba(20, 19, 19, 0.5);
+                }
+              </style>
+
+        <script src="{{ url_for('static', filename='cardLayout.js') }}"></script>
+
+    </body>
+
+</html>

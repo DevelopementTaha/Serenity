@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+        <meta name="theme-color" content="#34A5DA">
+        <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}" />
+        <title>Serenity Relaxation</title>
+        <meta name="description" content="Serenity relaxation webapp">
+        <link rel="stylesheet" href="{{ url_for('static', filename='collection.css') }}">
+        <link rel="shortcut icon" type="image/x-icon" href="../static/images/Logo Serenity Icon High Res v1.0.png" />
+
+        <!-- Bootstrap Links -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <!-- JS, Popper.js, and jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+        <!-- Jquery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        
+    </head>
+    <body style = "background-color: #f6f6f6" >
+            <div class = "name">
+                <h3><span class="description"></span>{{collection.name}}</h3>
+            </div>
+
+            <div class = "image">
+                <img src="{{collection.image}}" height="200" width="350" > 
+                </img>
+            </div>
+
+            <div class = "description">
+                <p><span class="description"></span>{{collection.description}}</p>
+            </div>
+
+            <div id="card-parent" class="parent-div" >
+                {% for session in collection.sessionList %}
+                    <a href="{{ url_for('showSession', sessionId=session.id) }}" class="card">
+                        <div class="card__head">
+                            <div class="card__image" style="background-image: url('{{session.image}}');"></div>
+                            <div class="card__author">
+                                <div class="author">
+                                    
+                                    <div class="author__content">
+                                        <p class="author__header">{{session.title}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card__body">
+                            <h2 class="card__headline"></h2>
+
+                        </div>
+
+                        <div class="card__foot">
+                            <span class="card__link">Explore</span>
+                        </div>
+
+                        <div class="card__border"></div>
+                    </a>
+                {% endfor %}
+            </div>
+        
+            <footer class = "footerbuttons">
+                <a href="{{ url_for('home') }}"><img src="..//static/images/PWA - Homepage.png"  class="footerImage" /></a>
+                <a href="javascript:void(0)" onclick="history.back(); return false"><img src="..//static/images/PWA - Previous.png"  class="footerImage" /></a>
+            </footer>
+            <style>
+                footerbuttons{
+                box-shadow: 2px 2px 4px rgba(0,0,0,0.5), -2px -2px 4px rgba(20, 19, 19, 0.5);
+                }
+            </style>
+        
+    </body>
+</html>
